@@ -1,0 +1,4 @@
+<resources>
+	<string name="app_name">PermissMe Demo</string>
+	<string name="activity_image_trans">demoTransition1</string>
+</resources>

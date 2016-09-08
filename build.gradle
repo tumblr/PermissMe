@@ -1,0 +1,71 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+    }
+}
+
+repositories {
+    jcenter()
+    mavenCentral()
+}
+
+ext {
+    versionCode = 1
+    versionName = "1.0-beta"
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'checkstyle'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 23
+        versionCode project.versionCode
+        versionName project.versionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+checkstyle {
+    toolVersion = '6.7'
+}
+
+task checkstyle(type: Checkstyle) {
+    configFile = rootProject.file('checkstyle.xml')
+    configProperties = ['proj.module.dir': projectDir.absolutePath]
+    classpath = files()
+
+    source 'src/main/java', 'src/debug/java'
+    include '**/*.java'
+    exclude '**/gen/**'
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:design:23.4.0'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.0'
+    testCompile 'org.robolectric:shadows-multidex:3.0'
+    testCompile 'org.robolectric:shadows-support-v4:3.0'
+
+    testCompile 'org.powermock:powermock-core:1.6.5'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.5'
+    testCompile 'org.powermock:powermock-module-junit4:1.6.5'
+    testCompile 'org.powermock:powermock-module-junit4-rule:1.6.5'
+}
+

@@ -1,0 +1,201 @@
+= https://tumblr.github.io/PermissMe/[PermissMe User Guide]
+Version {version}
+
+https://tumblr.github.io/PermissMe/java-docs.html[JavaDocs]
+
+== Introduction
+PermissMe is a convenience library for handling callbacks and operations pertaining to granting access to runtime
+permissions in Android, SDK 23 and up. It enables the developer to target SDK 23 without having to add
+fragmented runtime-permission handling code in multiple activities. PermissMe provides a clean interface with
+convenient options to request permission for resources and to handle common scenarios that can occur with user input.
+
+PermissMe was developed with the aim of solving the following 3 issues with the existing runtime-permission
+frameworks and libraries:
+1. All permission logic (requesting, callbacks, etc) should be handled in one place in the app for easily targetting
+SDK 23 for existing and new apps
+2. No dependencies on existing frameworks to create a clean interface
+3. Performant and efficient in implementation
+
+== Types of Permission Requests
+PermissMe allows you to specify "optional" and "required" permissions through the builder interface.
+
+[source,java]
+PermissMe.with(activityContext)
+		.setRequiredPermissions(Manifest.permissions.READ_EXTERNAL_STORAGE)
+		.setOptionalPermissions(Manifest.permissions.LOCATION)
+		.verifyPermissions();
+
+Specifying both `optional` and `required` permissions together is not required - either one is fine.
+
+*Required Permission Usecase:*
+App user wants to upload a picture into the app, the app needs access to their storage to read the images stored on
+their device. The app queries for a required READ_EXTERNAL_STORAGE permission. If the user grants permission, we can
+launch the photo gallery activity. If the user denies permission, we don't launch the activity.
+
+*Optional Permission Use Case:*
+User wants to post a tweet. The app queries for optional LOCATION permission. If the user grants permission, the app appends their location data to the tweet. If the user denies the permission, we allow the user to compose the tweet without appending location data.
+
+From these examples, you can see that "optional" permissions do not stop an operation from executing, even if denied. Required permissions however, do stop the operation from executing.
+
+
+== Usage
+There are 3 different methods to request access to private data from users with PermissMe:
+
+1. Callback interface
+2. Launch Activity upon permission grant
+3. Launch activity intent upon permission grant
+
+=== 1. Callback Interface
+This is referred to as "in-place" permission checking. PermissMe will provide a callback with the user input
+information about the grant-access of the requested permission. To do this, you will set a listener thorugh the builder:
+
+Example:
+
+[source,java]
+PermissMe.with(callerActivity)
+	.setRequiredPermission(Manifest.app.WRITE_EXTERNAL_STORAGE)
+	.listener(new PermissionsListener() {
+		@Override
+		void onSuccess() {
+			// start async task that writes data to external storage
+		}
+		@Override
+		void onRequiredPermissionDenied(...) {
+			// PermissMe shows a snackbar to let user know this app needs permission
+		}
+		@Override
+		void onOptionalPermissionDenied(...) {
+			/** No-op, this won't happen; we only asked for required permissions **/
+		}
+	})
+	.verifyPermissions();
+
+https://tumblr.github.io/PermissMe/com/tumblr/permissme/PermissMe.Builder.html#verifyPermissions()[Reference for verifyPermissions()]
+
+=== 2. Launch Activity Upon Permission Grant
+This is a convenient way to tell PermissMe to launch a specific activity with the given extras bundle, and options
+bundle if the user grants required permissions. If the user denies required permissions, the activity does not launch. If the permissions asked are "optional", the activity will still launch.
+
+Example:
+
+[source,java]
+PermissMe.with(callerActivity)
+	.optionalPermissions(Manifest.app.READ_EXTERNAL_STORAGE)
+	.launchActivityWithPermissions(destinationActivityClass, destinationBundle, optBundle);
+
+https://tumblr.github.io/PermissMe/com/tumblr/permissme/PermissMe.Builder.html#launchActivityWithPermissions(java.lang.Class,%20android.os.Bundle,%20android.os.Bundle)[Reference for launchActivityWithPermissions(Class, Bundle, Bundle)]
+
+=== 3. Launch Activity Intent Upon Permission Grant
+This method allows you to specify an intent to launch when a user grants a required permission, or when they
+grant/deny an optional permission. Passing an intent rather than passing in a class with params for PermissMe to
+construct the activity intent gives you more control over the intent. You would want more control over the intent if
+you want to set custom intent flags for example which PermissMe does not have an interface for. PermissMe does not
+aim to duplicate/enhance the intent activity launch framework, just use it for convenience :).
+
+Example:
+
+```
+Intent destinationIntent = new Intent(callerActivity, DestinationActivityClass.class);
+destinationIntent.putExtras(...);
+destinationIntent.setFlags(...);
+destinationIntent.setExtrasClassLoader(...);
+
+// Material design sharedElement launch options
+ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, ...);
+
+PermissMe.with(callerActivity)
+        .requiredPermissions(Manifest.android.WRITE_STORAGE)
+        .optionalPermissions(Manifest.android.SMS)
+        .launchActivityWithPermissions(intent, options.toBundle());
+```
+https://tumblr.github.io/PermissMe/com/tumblr/permissme/PermissMe.Builder.html#launchActivityWithPermissions(android.content.Intent,%20android.os.Bundle)[Reference for launchActivityWithPermissions(Intent, Bundle)]
+
+In this above example, we use the `launchActivityWithPermissions(Intent..., launchOptions..)` builder method to pass
+in the customized intent with custom classLoader, and flags, which PermissMe does not provide interfaces to specify.
+
+== Terminology
+
+*Granted Permission:* The user tapped "Allow" on the permission system dialog.
+
+*Denied Permission:* The user tapped "Deny" on the permission system dialog.
+
+*Auto Denied Permission:* The user selected the "Do Not Ask Again" checkbox.
+
+*Destination Activity:* The activity that will be launched once the user grants access to a permission.
+
+*Required Permission:* Permission that your app requires in order to be able to continue flow of execution. If this
+permission is not granted by the user, nothing will be executed.
+
+*Optional Permission:* Permission that your app requires to provide a better user experience, but is not necessary for
+the actual feature to function.
+
+== Example Usage Scenarios
+
+=== Logging When User Taps Allow or Deny on a Permission
+```
+PermissMe.with(callerActivity)
+        .setRequiredPermissions(
+            Manifest.android.WRITE_STORAGE,
+            Manifest.android.READ_STORAGE
+        )
+        .listener(new PermissionListener() {
+                    onRequiredPermissionDenied(final String[] deniedPermissions, boolean[] isAutoDenied) {
+                    	// Log to server user denied these permissions
+                    }
+                    onOptionalPermissionDenied(final String[] deniedPermissions, boolean[] isAutoDenied) {
+                    	// Log to server user denied these permissions
+                    }
+                    onSuccess() {
+                    	// Log to server user allowed permissions
+                    }
+        })
+        .verifyPermissions();
+```
+=== Request permission to start activity with result
+```
+PermissMe.with(callerActivity)
+        .requiredPermissions(
+            Manifest.android.WRITE_STORAGE,
+            Manifest.android.READ_STORAGE
+        )
+        .requestCode(DESTINATION_REQEUST_CODE)
+        .launchActivityWithPermissions(DestinationActivity.class, extrasBundle, null);
+```
+
+=== Request permission to start intent with the caller fragment handling the result of the activity
+```
+Intent destinationIntent = new Intent(callerActivity, DestinationActivityClass.class);
+destinationIntent.setFlags(...);
+
+PermissMe.with(callerActivity)
+        .requiredPermissions(Manifest.android.WRITE_STORAGE)
+        .optionalPermissions(Manifest.android.SMS)
+        .targetFragment(this)
+        .requestCode(DESTINATION_REQUEST_CODE)
+        .launchActivityWithPermissions(intent, null);
+```
+
+=== More Combinations
+```
+PermissMe.with(callerActivity)
+        .setRequiredPermissions(Manifest.android.WRITE_STORAGE)
+        .setOptionalPermissions(Manifest.android.SMS)
+        .targetFragment(this)
+        .requestCode(DESTINATION_REQUEST_CODE)
+        .customAutoFailureMessage("Need permissions to launch this")
+        .finishActivityUponResult()
+        .introAnimationType(PermissMeAnimUtils.TransitionType.FADE)
+        .listener(new PermissionListenerAdapter())
+        .launchActivityWithPermissions(DestinationActivity.class, null, null);
+```
+
+== Further Info About Arch
+PermissMe  handles all logic on whether to request permissions. There is a fragment that has no UI (headless
+fragment) that adds itself to the caller activity when the user tries to request
+permissions. It is a fragment rather than a simple helper class to be able to encapsulate all the runtime
+permission logic including receiving system callbacks when the user interacts with the permission dialog; making it a
+ fragment also reduces the chance of memory leaks.
+
+In order to launch destination activities, PermissMe fragment creates an intent and sets the specified extras bundle.
+ It launches this intent if the user granted the required permissions or was queried for optional permissions.
+

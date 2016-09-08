@@ -1,0 +1,5 @@
+<resources>
+	<string name="app_name">PermissMe</string>
+	<string name="default_permission_denied_msg">Permission denied. Cannot execute that operation.</string>
+	<string name="default_permission_denied_cta_text">Settings</string>
+</resources>

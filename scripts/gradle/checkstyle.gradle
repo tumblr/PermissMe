@@ -1,0 +1,15 @@
+apply plugin: 'checkstyle'
+
+checkstyle {
+    toolVersion = checkstyleconfig.checkstyleVersion
+}
+
+task checkstyle(type: Checkstyle) {
+    configFile = rootProject.file('checkstyle.xml')
+    configProperties = ['proj.module.dir': projectDir.absolutePath]
+    classpath = files()
+
+    source 'src/main/java', 'src/debug/java'
+    include '**/*.java'
+    exclude '**/gen/**'
+}

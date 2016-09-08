@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingBottom="@dimen/activity_vertical_margin"
+	android:paddingLeft="@dimen/activity_horizontal_margin"
+	android:paddingRight="@dimen/activity_horizontal_margin"
+	android:paddingTop="@dimen/activity_vertical_margin"
+	tools:context="com.tumblr.permissme.sample.MainActivity">
+
+	<RelativeLayout
+		android:id="@+id/contacts_container"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<TextView
+			android:id="@+id/contacts_text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@+id/contacts_thumb"
+			android:text="Load the contacts on your phone" />
+
+		<Button
+			android:id="@+id/contacts_button"
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/contacts_text"
+			android:layout_below="@+id/contacts_text"
+			android:text="Read Contacts" />
+
+		<ImageView
+			android:id="@+id/contacts_thumb"
+			android:layout_width="50dp"
+			android:layout_height="65dp"
+			android:background="@android:color/holo_blue_light"
+			android:scaleType="centerInside"
+			android:src="@android:drawable/ic_dialog_email"
+			android:transitionName="@string/activity_image_trans" />
+	</RelativeLayout>
+
+	<RelativeLayout
+		android:id="@+id/gallery_container"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/contacts_container">
+
+		<TextView
+			android:id="@+id/gallery_text"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_toRightOf="@+id/gallery_thumb"
+			android:text="Load the photos on your phone" />
+
+		<Button
+			android:id="@+id/shared_element_button"
+			android:layout_width="200dp"
+			android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/gallery_text"
+			android:layout_below="@+id/gallery_text"
+			android:text="Gallery" />
+
+		<ImageView
+			android:id="@+id/gallery_thumb"
+			android:layout_width="50dp"
+			android:layout_height="65dp"
+			android:background="@android:color/holo_green_light"
+			android:scaleType="centerInside"
+			android:src="@android:drawable/ic_dialog_alert"
+			android:transitionName="@string/activity_image_trans" />
+	</RelativeLayout>
+
+</RelativeLayout>
