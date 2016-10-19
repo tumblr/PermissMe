@@ -1,9 +1,10 @@
+image::/sample/src/main/res/drawable/logo_144.png[alt text]
+
 = https://tumblr.github.io/PermissMe/[PermissMe User Guide]
-Version {version}
 
 https://tumblr.github.io/PermissMe/java-docs.html[JavaDocs]
 
-== Download
+## Download
 https://github.com/tumblr/PermissMe/blob/master/releases/PermissMe-1.0-beta.aar[Download the latest AAR]
 
 == Introduction
