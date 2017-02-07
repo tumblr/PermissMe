@@ -4,6 +4,20 @@ image::/sample/src/main/res/drawable/logo_144.png[alt text]
 
 https://tumblr.github.io/PermissMe/java-docs.html[JavaDocs]
 
+## Gradle
+```
+compile 'com.tumblr.permissme:permissme:1.0.0'
+```
+
+## Maven
+```
+<dependency>
+  <groupId>com.tumblr.permissme</groupId>
+  <artifactId>permissme</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
 ## Download
 https://github.com/tumblr/PermissMe/blob/master/releases/PermissMe-1.0-beta.aar[Download the latest AAR]
 
