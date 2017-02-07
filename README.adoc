@@ -26,6 +26,7 @@ convenient options to request permission for resources and to handle common scen
 
 PermissMe was developed with the aim of solving the following 3 issues with the existing runtime-permission
 frameworks and libraries:
+
 1. All permission logic (requesting, callbacks, etc) should be handled in one place in the app for easily targetting
 SDK 23 for existing and new apps
 2. No dependencies on existing frameworks to create a clean interface
