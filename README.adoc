@@ -18,9 +18,6 @@ compile 'com.tumblr.permissme:permissme:1.0.0'
 </dependency>
 ```
 
-## Download
-https://github.com/tumblr/PermissMe/blob/master/releases/PermissMe-1.0-beta.aar[Download the latest AAR]
-
 == Introduction
 PermissMe is a convenience library for handling callbacks and operations pertaining to granting access to runtime
 permissions in Android, SDK 23 and up. It enables the developer to target SDK 23 without having to add
