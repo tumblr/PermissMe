@@ -1,11 +1,11 @@
 package com.tumblr.permissme;
 
-import android.support.annotation.ColorRes;
-import android.support.annotation.StringRes;
+import androidx.annotation.ColorRes;
+import androidx.annotation.StringRes;
 
 /**
  * Configuration singleton class that will setup your custom configuration of {@link PermissMe} permission denied
- * messages and colors for the {@link android.support.design.widget.Snackbar}
+ * messages and colors for the {@link com.google.android.material.snackbar.Snackbar}
  */
 public final class PermissMeConfig {
 
@@ -84,7 +84,7 @@ public final class PermissMeConfig {
 	}
 
 	/**
-	 * The string on the cta button of the {@link android.support.design.widget.Snackbar} that will take the user to
+	 * The string on the cta button of the {@link com.google.android.material.snackbar.Snackbar} that will take the user to
 	 * the app settings to toggle their permissions
 	 * @return the string res id for the cta button message
 	 */
@@ -95,7 +95,7 @@ public final class PermissMeConfig {
 
 	/**
 	 * The resource id of the color that will be set as the background color of the permission auto-denied
-	 * {@link android.support.design.widget.Snackbar}
+	 * {@link com.google.android.material.snackbar.Snackbar}
 	 * @return the color resource id
 	 */
 	@ColorRes
@@ -105,7 +105,7 @@ public final class PermissMeConfig {
 
 	/**
 	 * The resource id of the color that will be set as the CTA button color on the permission denied
-	 * {@link android.support.design.widget.Snackbar}
+	 * {@link com.google.android.material.snackbar.Snackbar}
 	 *
 	 * @return the color resource id
 	 */

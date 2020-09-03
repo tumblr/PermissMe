@@ -3,12 +3,14 @@ package com.tumblr.permissme;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.AnimRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.AnimRes;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
 import com.tumblr.permissme.utils.PermissMeUtils;
 
 /**
@@ -249,9 +251,9 @@ public class PermissMe extends Fragment {
 
 		/**
 		 * Sets a custom message that will be shown upon auto-denied permission
-		 * {@link android.support.design.widget.Snackbar}. If no custom message was
+		 * {@link com.google.android.material.snackbar.Snackbar}. If no custom message was
 		 * set, the default message will be used.
-		 * To not show a {@link android.support.design.widget.Snackbar} at all, use
+		 * To not show a {@link com.google.android.material.snackbar.Snackbar} at all, use
 		 * {@link #showNoUIOnFailure()}
 		 *
 		 * @param failureMsg
@@ -748,7 +750,7 @@ public class PermissMe extends Fragment {
 		 * 		an array of booleans indicating whether the deniedPermissions were auto-denied,
 		 * 		ergo, the user previously or currently checked "Never ask again" on the permission dialog.
 		 * 		Each boolean is associated with a permission in the deniedPermissions list
-		 * 		A {@link android.support.design.widget.Snackbar} is shown by default telling the user to turn the
+		 * 		A {@link com.google.android.material.snackbar.Snackbar} is shown by default telling the user to turn the
 		 * 		permission on with an action button that will take them to the app's settings. Caller can specify
 		 * 		turning the snackbar off using {@link Builder#showNoUIOnFailure()} to handle this by themselves.
 		 */

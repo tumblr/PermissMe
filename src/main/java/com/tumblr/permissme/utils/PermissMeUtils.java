@@ -10,14 +10,16 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.PermissionChecker;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.PermissionChecker;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.tumblr.permissme.PermissMeConfig;
 
 import java.util.ArrayList;

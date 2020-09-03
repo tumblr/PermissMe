@@ -1,16 +1,16 @@
 buildscript {
     repositories {
+        google()
         jcenter()
-        mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:4.0.1'
     }
 }
 
 repositories {
+    google()
     jcenter()
-    mavenCentral()
 }
 
 ext {
@@ -22,12 +22,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'checkstyle'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 28
         versionCode project.versionCode
         versionName project.versionName
     }
@@ -54,18 +54,18 @@ task checkstyle(type: Checkstyle) {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.0'
-    testCompile 'org.robolectric:shadows-multidex:3.0'
-    testCompile 'org.robolectric:shadows-support-v4:3.0'
+    testImplementation 'junit:junit:4.13'
+    testImplementation 'org.robolectric:robolectric:3.0'
+    testImplementation 'org.robolectric:shadows-multidex:3.0'
+    testImplementation 'org.robolectric:shadows-support-v4:3.0'
 
-    testCompile 'org.powermock:powermock-core:1.6.5'
-    testCompile 'org.powermock:powermock-api-mockito:1.6.5'
-    testCompile 'org.powermock:powermock-module-junit4:1.6.5'
-    testCompile 'org.powermock:powermock-module-junit4-rule:1.6.5'
+    testImplementation 'org.powermock:powermock-core:1.6.5'
+    testImplementation 'org.powermock:powermock-api-mockito:1.6.5'
+    testImplementation 'org.powermock:powermock-module-junit4:1.6.5'
+    testImplementation 'org.powermock:powermock-module-junit4-rule:1.6.5'
 }
 
