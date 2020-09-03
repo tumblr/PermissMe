@@ -5,15 +5,17 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tumblr.permissme.PermissMe;
@@ -37,7 +39,7 @@ public class SharedElementActivity extends AppCompatActivity {
 
 		mEmptyView = findViewById(R.id.negative_layout);
 
-		final Button loadPhotosButton = (Button) findViewById(R.id.load_photos_button);
+		final Button loadPhotosButton = findViewById(R.id.load_photos_button);
 		loadPhotosButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -133,7 +135,7 @@ public class SharedElementActivity extends AppCompatActivity {
 		public void onBindViewHolder(ImageViewHolder holder, int position) {
 			Glide.with(holder.imageView.getContext())
 					.load(mImagePaths.get(position))
-					.diskCacheStrategy(DiskCacheStrategy.SOURCE)
+					.diskCacheStrategy(DiskCacheStrategy.RESOURCE)
 					.into(holder.imageView);
 		}
 

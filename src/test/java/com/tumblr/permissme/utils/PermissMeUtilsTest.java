@@ -4,8 +4,8 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v4.content.PermissionChecker;
-import com.tumblr.permissme.utils.PermissMeUtils;
+import androidx.core.content.PermissionChecker;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -12,7 +12,7 @@
 		android:background="@android:color/holo_green_light"
 		android:transitionName="@string/activity_image_trans"/>
 
-	<android.support.v7.widget.RecyclerView
+	<androidx.recyclerview.widget.RecyclerView
 		android:layout_below="@+id/big_image"
 		android:id="@+id/recycler_view"
 		android:layout_width="match_parent"
