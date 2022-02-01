@@ -35,7 +35,7 @@ public class ContactsActivity extends AppCompatActivity {
 
 		if (cur != null && cur.getCount() > 0) {
 			while (cur.moveToNext()) {
-				String name = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+				String name = cur.getString(cur.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME));
 				contactsList.add(name);
 			}
 		}
