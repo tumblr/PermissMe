@@ -22,12 +22,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'checkstyle'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion "30.0.2"
+    compileSdkVersion 30
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 28
+        targetSdkVersion 30
         versionCode project.versionCode
         versionName project.versionName
     }
