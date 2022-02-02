@@ -13,3 +13,10 @@ steps:
     artifact_paths:
       - "**/build/reports/lint-results.*"
       - "**/build/reports/checkstyle/checkstyle.*"
+
+  - label: "Test"
+    plugins:
+      - *docker-container
+    command: |
+      cp gradle.properties-example gradle.properties
+      ./gradlew test
