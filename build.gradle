@@ -1,11 +1,5 @@
-buildscript {
-    repositories {
-        google()
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0'
-    }
+plugins {
+    id "com.android.library"
 }
 
 repositories {
