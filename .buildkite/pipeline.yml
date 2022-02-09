@@ -5,6 +5,7 @@ common-params:
 
 steps:
   - label: "Lint & Checkstyle"
+    key: "lint_and_checkstyle"
     plugins:
       - *docker-container
     command: |
@@ -15,8 +16,21 @@ steps:
       - "**/build/reports/checkstyle/checkstyle.*"
 
   - label: "Test"
+    key: "test"
     plugins:
       - *docker-container
     command: |
       cp gradle.properties-example gradle.properties
       ./gradlew test
+
+  - label: "Publish to S3 Maven"
+    depends_on:
+      - "lint_and_checkstyle"
+      - "test"
+    plugins:
+      - *docker-container
+    command: |
+      cp gradle.properties-example gradle.properties
+      ./gradlew \
+          prepareToPublishToS3 $(prepare_to_publish_to_s3_params) \
+          publish
