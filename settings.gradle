@@ -6,13 +6,7 @@ pluginManagement {
         id "com.android.library" version gradle.ext.agpVersion
     }
     repositories {
-        google {
-            content {
-                includeGroupByRegex "com.android.*"
-                includeGroupByRegex "com.google.*"
-                includeGroupByRegex "androidx.*"
-            }
-        }
+        google()
         mavenCentral()
     }
 }
