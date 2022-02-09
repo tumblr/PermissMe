@@ -2,6 +2,12 @@ common-params:
   &docker-container
   docker#v3.8.0:
     image: "public.ecr.aws/automattic/android-build-image:v1.1.0"
+    propagate-environment: true
+    environment:
+      # DO NOT MANUALLY SET THESE VALUES!
+      # They are passed from the Buildkite agent to the Docker container
+      - "AWS_ACCESS_KEY"
+      - "AWS_SECRET_KEY"
 
 steps:
   - label: "Lint & Checkstyle"
