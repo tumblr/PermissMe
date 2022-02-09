@@ -1,15 +1,11 @@
 plugins {
     id "com.android.library"
+    id "com.automattic.android.publish-to-s3"
 }
 
 repositories {
     google()
     jcenter()
-}
-
-ext {
-    versionCode = 1
-    versionName = "1.0-beta"
 }
 
 apply plugin: 'com.android.library'
@@ -21,8 +17,6 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 31
-        versionCode project.versionCode
-        versionName project.versionName
     }
     buildTypes {
         release {
@@ -62,3 +56,17 @@ dependencies {
     testImplementation 'org.powermock:powermock-module-junit4-rule:1.6.5'
 }
 
+project.afterEvaluate {
+    publishing {
+        publications {
+            PermissMePublication(MavenPublication) {
+                from components.release
+
+                groupId "com.tumblr.permissme"
+                artifactId "permissme"
+                artifact tasks.named("androidSourcesJar") // This task is added by 'publish-to-s3' plugin
+                // version is set by 'publish-to-s3' plugin
+            }
+        }
+   }
+}
