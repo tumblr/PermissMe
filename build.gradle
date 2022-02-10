@@ -62,7 +62,7 @@ project.afterEvaluate {
             PermissMePublication(MavenPublication) {
                 from components.release
 
-                groupId "com.tumblr.permissme"
+                groupId "com.tumblr"
                 artifactId "permissme"
                 artifact tasks.named("androidSourcesJar") // This task is added by 'publish-to-s3' plugin
                 // version is set by 'publish-to-s3' plugin
