@@ -5,18 +5,41 @@ image::/sample/src/main/res/drawable/logo_144.png[alt text]
 https://tumblr.github.io/PermissMe/java-docs.html[JavaDocs]
 
 ## Gradle
-```
-compile 'com.tumblr.permissme:permissme:1.0.0'
+```groovy
+repositories {
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://a8c-libs.s3.amazonaws.com/android"
+            }
+        }
+        filter {
+            includeModule "com.tumblr", "permissme"
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.tumblr:permissme:1.1.0'
+}
 ```
 
 ## Maven
 ```
 <dependency>
-  <groupId>com.tumblr.permissme</groupId>
+  <groupId>com.tumblr</groupId>
   <artifactId>permissme</artifactId>
-  <version>1.0.0</version>
+  <version>1.1.0</version>
 </dependency>
 ```
+
+## Publishing a new version
+
+In the following cases, the CI will publish a new version with the following format to our S3 Maven repo:
+
+* For each commit in an open PR: `<PR-number>-<commit full SHA1>`
+* Each time a PR is merged to `master`: `master-<commit full SHA1>`
+* Each time a new tag is created: `{tag-name}`
 
 == Introduction
 PermissMe is a convenience library for handling callbacks and operations pertaining to granting access to runtime
