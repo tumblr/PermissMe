@@ -1,0 +1,22 @@
+common-params:
+  &docker-container
+  docker#v3.8.0:
+    image: "public.ecr.aws/automattic/android-build-image:v1.1.0"
+
+steps:
+  - label: "Lint & Checkstyle"
+    plugins:
+      - *docker-container
+    command: |
+      cp gradle.properties-example gradle.properties
+      ./gradlew lintRelease checkstyle
+    artifact_paths:
+      - "**/build/reports/lint-results**.*"
+      - "**/build/reports/checkstyle/checkstyle.*"
+
+  - label: "Test"
+    plugins:
+      - *docker-container
+    command: |
+      cp gradle.properties-example gradle.properties
+      ./gradlew test
