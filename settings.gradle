@@ -1,1 +1,22 @@
+pluginManagement {
+    gradle.ext.agpVersion = '7.1.1'
+
+    plugins {
+        id "com.android.application" version gradle.ext.agpVersion
+        id "com.android.library" version gradle.ext.agpVersion
+        id "com.automattic.android.publish-to-s3" version "0.7.0"
+    }
+    repositories {
+        maven {
+            url 'https://a8c-libs.s3.amazonaws.com/android'
+            content {
+                includeGroup "com.automattic.android"
+                includeGroup "com.automattic.android.publish-to-s3"
+            }
+        }
+        google()
+        mavenCentral()
+    }
+}
+
 include ':sample'
