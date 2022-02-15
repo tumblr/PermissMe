@@ -1,15 +1,13 @@
 plugins {
     id "com.android.library"
     id "com.automattic.android.publish-to-s3"
+    id "checkstyle"
 }
 
 repositories {
     google()
     jcenter()
 }
-
-apply plugin: 'com.android.library'
-apply plugin: 'checkstyle'
 
 android {
     compileSdkVersion 31
