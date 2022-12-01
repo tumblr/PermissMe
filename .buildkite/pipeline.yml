@@ -1,19 +1,20 @@
-common-params:
-  &docker-container
-  docker#v3.8.0:
-    image: "public.ecr.aws/automattic/android-build-image:v1.1.0"
-    propagate-environment: true
-    environment:
-      # DO NOT MANUALLY SET THESE VALUES!
-      # They are passed from the Buildkite agent to the Docker container
-      - "AWS_ACCESS_KEY"
-      - "AWS_SECRET_KEY"
+common_params:
+  # Common plugin settings to use with the `plugins` key.
+  - &common_plugins
+    - automattic/bash-cache#2.11.0
 
 steps:
+  - label: "Gradle Wrapper Validation"
+    command: |
+      validate_gradle_wrapper
+    plugins: *common_plugins
+
+  # Wait for Gradle Wrapper to be validated before running any other jobs
+  - wait
+
   - label: "Lint & Checkstyle"
     key: "lint_and_checkstyle"
-    plugins:
-      - *docker-container
+    plugins: *common_plugins
     command: |
       cp gradle.properties-example gradle.properties
       ./gradlew lintRelease checkstyle
@@ -23,8 +24,7 @@ steps:
 
   - label: "Test"
     key: "test"
-    plugins:
-      - *docker-container
+    plugins: *common_plugins
     command: |
       cp gradle.properties-example gradle.properties
       ./gradlew test
@@ -33,8 +33,7 @@ steps:
     depends_on:
       - "lint_and_checkstyle"
       - "test"
-    plugins:
-      - *docker-container
+    plugins: *common_plugins
     command: |
       cp gradle.properties-example gradle.properties
       ./gradlew \
